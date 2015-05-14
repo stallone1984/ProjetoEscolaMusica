@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+		<title>
+			Escola de Música - <ui:insert name="titulo">Template</ui:insert> 
+		</title>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="#{request.contextPath}/css/tema.css"></link>
+	</h:head>
+	<h:body>
+		<h:form>
+			<p:menubar>
+				<p:menuitem value="Cidades" url="/cidades/"/>
+				<p:menuitem value="Cursos" url="/cursos/"/>
+			</p:menubar>
+		</h:form>
+		
+		<ui:insert name="principal" />
+	</h:body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

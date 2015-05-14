@@ -1,0 +1,72 @@
+<ui:composition 
+	template="/paginas/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Cadastro de Cidades</ui:define>
+
+	<ui:define name="principal">
+		<p:panel header="Cadastro de Cidades" style="width:50%;">
+			<h:form id="lista-cidades-form">
+
+				<p:toolbar id="toolbar">
+					<f:facet name="left">
+
+						<p:commandButton value="Nova Cidade" icon="ui-icon-plus"
+							oncomplete="PF('cadastroCidadeDialog').show()">
+
+						</p:commandButton>
+
+						<span class="ui-separator"> <span
+							class="ui-icon ui-icon-grip-dotted-vertical" />
+						</span>
+
+						<p:commandButton title="Editar Cidade" icon="ui-icon-pencil">
+
+						</p:commandButton>
+
+
+					</f:facet>
+				</p:toolbar>
+
+				<p:dataTable value="#{cidadeBean.cidades}" var="cidade">
+					<p:column width="60%;" sortBy="#{cidade.nome}"
+						filterBy="#{cidade.nome}" filterMatchMode="contains">
+						<f:facet name="header">
+							<h:outputText value="Nome" />
+						</f:facet>
+						<h:outputText value="#{cidade.nome}" />
+					</p:column>
+					<p:column headerText="Estado" sortBy="#{cidade.uf}">
+						<h:outputText value="#{cidade.uf.label}" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</p:panel>
+
+		<h:form id="cadastro-cidade-form">
+			<p:dialog widgetVar="cadastroCidadeDialog" modal="true"
+				id="cadastro-cidade" header="Cadastro de Cidades">
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:outputLabel value="Nome:" />
+					<p:inputText value="#{cidadeBean.cidade.nome}" />
+					<h:outputLabel value="Estado:" />
+					<p:selectOneMenu value="#{cidadeBean.cidade.uf}">
+						<f:selectItem itemLabel=":: Selecione ::" itemValue="#{null}" />
+						<f:selectItems value="#{cidadeBean.estados}" var="estado"
+							itemLabel="#{estado.label}" itemValue="#{estado}" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+
+				<p:commandButton value="Salvar" action="#{cidadeBean.salvar}"
+					oncomplete="PF('cadastroCidadeDialog').hide()"
+					update=":lista-cidades-form" />
+				<p:commandButton value="Cancelar" style="margin-left:8px;"
+					oncomplete="PF('cadastroCidadeDialog').hide()" />
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>
